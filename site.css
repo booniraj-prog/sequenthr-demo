@@ -301,3 +301,51 @@
 .page-hero p { max-width: 40rem; margin: 16px 0 0; color: rgba(247,243,236,.75); }
 .lead-section { padding: 48px 0 72px; }
 .lead-title { max-width: none; margin-top: 12px; }
+.services { border-top: 1px solid var(--line); margin-top: 8px; }
+.service { border-bottom: 1px solid var(--line); background: transparent; }
+.service summary {
+  list-style: none;
+  cursor: pointer;
+  display: grid;
+  grid-template-columns: 56px 1fr 40px;
+  gap: 20px;
+  align-items: start;
+  padding: 28px 0 24px;
+}
+.service summary::-webkit-details-marker { display: none; }
+.service summary .num {
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: .16em;
+  color: var(--orange);
+  padding-top: 8px;
+}
+.service summary strong {
+  display: block;
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-size: clamp(20px, 2vw, 26px);
+  letter-spacing: -0.03em;
+  font-weight: 650;
+}
+.service summary span.line { display: block; margin-top: 6px; color: var(--muted); font-size: 14.5px; }
+.service .chev {
+  width: 32px; height: 32px; border: 1px solid var(--line); border-radius: 999px;
+  display: grid; place-items: center; color: var(--deep); transition: transform .25s ease, background .25s ease, color .25s ease;
+}
+.service[open] { background: #fff; }
+.service[open] summary strong { color: var(--deep); }
+.service[open] .chev { transform: rotate(45deg); background: var(--deep); color: var(--cream); border-color: var(--deep); }
+.service-body { padding: 8px 60px 40px 76px; }
+.service-body p { margin: 0 0 18px; }
+.service-body h3 { margin: 18px 0 8px; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--teal); font-family: "Plus Jakarta Sans", sans-serif; }
+.service-body ul { margin: 0; padding-left: 18px; }
+.service-body li { margin: 7px 0; }
+.service-body .btn { margin-top: 22px; }
+@media (max-width: 860px) {
+  .service summary { grid-template-columns: 40px 1fr 36px; gap: 12px; padding: 22px 0 18px; }
+  .service-body { padding: 4px 0 32px 52px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .service .chev { transition: none; }
+}
