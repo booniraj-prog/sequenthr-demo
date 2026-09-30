@@ -1,0 +1,100 @@
+﻿<!DOCTYPE html>
+<html lang="en-IN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Leadership Â· Sequent HR</title>
+  <meta name="description" content="Sharath D C, K.V. Sridhara, and Hareesh G lead Sequent HR Consulting.">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@1,9..144,500&family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap">
+  <link rel="stylesheet" href="site.css">
+</head>
+<body>
+  <div id="site-header"></div>
+  <main>
+    <header class="page-hero">
+      <div class="wrap">
+        <p class="kicker ember">The people</p>
+        <h1 class="display lead-title">Direction with<br>a name on it.</h1>
+        <p>Three leaders publish the firmâ€™s experience: labour law, payroll, tax, and the discipline of keeping both accurate.</p>
+      </div>
+    </header>
+    <section class="lead-section">
+      <div class="wrap">
+        <!-- Portraits: save a photo as leadership/sharath.jpg, sridhara.jpg, or hareesha.jpg. -->
+        <div class="roster" id="roster">
+          <div>
+            <button type="button" data-leader="SD" aria-selected="true"><span class="bar"></span><span class="kicker" style="color:var(--orange)">01</span><strong class="display" style="display:block;font-size:32px;margin-top:6px;letter-spacing:-0.02em">Sharath D C</strong><span>Director</span></button>
+            <button type="button" data-leader="KS" aria-selected="false"><span class="bar"></span><span class="kicker" style="color:var(--orange)">02</span><strong class="display" style="display:block;font-size:32px;margin-top:6px;letter-spacing:-0.02em">K.V. Sridhara</strong><span>COO</span></button>
+            <button type="button" data-leader="HG" aria-selected="false"><span class="bar"></span><span class="kicker" style="color:var(--orange)">03</span><strong class="display" style="display:block;font-size:32px;margin-top:6px;letter-spacing:-0.02em">Hareesh G</strong><span>GM-Operation</span></button>
+          </div>
+          <article class="stage" id="leader-stage" data-leader="SD">
+            <figure class="portrait" data-slug="sharath">
+              <img alt="Sharath D C">
+              <span class="initials" style="color:#faf8f5;font-size:56px">SD</span>
+            </figure>
+            <div class="copy">
+              <p class="kicker ember" id="leader-role">Director</p>
+              <h2 class="display" id="leader-name" style="font-size:36px;margin-top:10px;letter-spacing:-0.02em">Sharath D C</h2>
+              <p id="leader-focus" style="color:var(--ember);margin-top:12px">Labour law &nbsp;|&nbsp; Payroll compliance &nbsp;|&nbsp; Audits</p>
+              <p id="leader-bio">Has 15 years of rich experience in managing various portfolios like payroll, statutory compliance, sales, marketing, operations, and HR, in medium and large organisations.</p>
+              <p class="display years" style="font-size:48px"><span id="leader-years">15</span> <span style="font-size:16px">years</span></p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+  <div id="site-footer"></div>
+  <script src="site.js"></script>
+  <script>
+    function loadPortrait(frame) {
+      const current = frame.querySelector("img");
+      const img = current.cloneNode(false);
+      current.replaceWith(img);
+      const extensions = ["jpg", "jpeg", "webp", "png"];
+      let index = 0;
+      frame.classList.remove("has-photo");
+      img.addEventListener("load", () => { if (img.naturalWidth > 0) frame.classList.add("has-photo"); });
+      img.addEventListener("error", () => {
+        index += 1;
+        if (index < extensions.length) img.src = "leadership/" + frame.dataset.slug + "." + extensions[index];
+      });
+      img.src = "leadership/" + frame.dataset.slug + "." + extensions[0];
+    }
+    const team = [
+      { initials: "SD", slug: "sharath", name: "Sharath D C", role: "Director", years: "15", focus: "Labour law  |  Payroll compliance  |  Audits", bio: "Has 15 years of rich experience in managing various portfolios like payroll, statutory compliance, sales, marketing, operations, and HR, in medium and large organisations." },
+      { initials: "KS", slug: "sridhara", name: "K.V. Sridhara", role: "COO", years: "45", focus: "Payroll & training  |  Income tax  |  Six Sigma projects  |  Labour law  |  ISO implementation", bio: "Has 45 years of rich experience in managing various portfolios like direct and indirect taxation, temp staffing, labour law compliance, and payroll in large organisations." },
+      { initials: "HG", slug: "hareesha", name: "Hareesh G", role: "GM-Operation", years: "20", focus: "Labour law  |  Payroll compliance  |  Audits", bio: "Has 20 years of rich experience in managing various portfolios like payroll, statutory compliance, sales, marketing, operations, and HR, in medium and large organisations." }
+    ];
+    const rosterButtons = document.querySelectorAll("#roster button");
+    const stage = document.getElementById("leader-stage");
+    const frame = stage.querySelector(".portrait");
+    loadPortrait(frame);
+    rosterButtons.forEach((button, index) => {
+      const show = () => {
+        const person = team[index];
+        rosterButtons.forEach((item, i) => item.setAttribute("aria-selected", String(i === index)));
+        document.getElementById("leader-role").textContent = person.role;
+        document.getElementById("leader-name").textContent = person.name;
+        document.getElementById("leader-focus").textContent = person.focus;
+        document.getElementById("leader-bio").textContent = person.bio;
+        frame.querySelector("img").alt = person.name;
+        document.getElementById("leader-years").textContent = person.years;
+        frame.querySelector(".initials").textContent = person.initials;
+        frame.dataset.slug = person.slug;
+        stage.dataset.leader = person.initials;
+        loadPortrait(frame);
+      };
+      button.addEventListener("mouseenter", show);
+      button.addEventListener("focus", show);
+      button.addEventListener("click", show);
+    });
+    stage.addEventListener("mousemove", (event) => {
+      const rect = stage.getBoundingClientRect();
+      stage.style.setProperty("--mx", (event.clientX - rect.left) + "px");
+      stage.style.setProperty("--my", (event.clientY - rect.top) + "px");
+    });
+  </script>
+</body>
+</html>
+

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en-IN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Contact · Sequent HR</title>
+  <meta name="description" content="Talk to Sequent HR Consulting in Bengaluru. Phone, email, and office address.">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@1,9..144,500&family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap">
+  <link rel="stylesheet" href="site.css">
+</head>
+<body>
+  <div id="site-header"></div>
+  <main>
+    <header class="page-hero">
+      <div class="wrap">
+        <p class="kicker ember">Contact</p>
+        <h1 class="display" style="margin-top:12px">Let’s talk.</h1>
+      </div>
+    </header>
+    <section>
+      <div class="wrap split">
+        <div>
+          <p class="muted">Sri Sathya Arcade, No. 192, 2nd Floor, West of Chord Service Road, 2nd Stage, Mahalakshmipuram, Bengaluru 560086.</p>
+          <p>Landmark: Pai International &amp; Mahalakshmi Metro Station</p>
+          <p><a href="tel:+918105757035">+91 81057 57035</a><br><a href="mailto:sharath.c@sequenthr.in">sharath.c@sequenthr.in</a></p>
+          <p><a href="https://wa.me/918105757035" target="_blank" rel="noreferrer">WhatsApp</a></p>
+          <p><a href="https://www.google.com/maps/place/Sequent+HR+Consulting+Pvt+Ltd/@13.0046023,77.5487062,17z" target="_blank" rel="noreferrer">Open in Google Maps</a></p>
+        </div>
+        <form id="enquiry" novalidate>
+          <label>Name <input name="name" required autocomplete="name"><span class="error" data-for="name"></span></label>
+          <label>Company <input name="company" required autocomplete="organization"><span class="error" data-for="company"></span></label>
+          <label>Work email <input name="email" type="email" required autocomplete="email"><span class="error" data-for="email"></span></label>
+          <label>Phone <input name="phone" type="tel" required autocomplete="tel"><span class="error" data-for="phone"></span></label>
+          <label>What can we help you with?
+            <select name="topic" required>
+              <option value="">Select</option>
+              <option>Labour law compliance</option>
+              <option>Payroll</option>
+              <option>Inspections and audits</option>
+              <option>Registrations and licences</option>
+              <option>Something else</option>
+            </select>
+            <span class="error" data-for="topic"></span>
+          </label>
+          <label>Message <textarea name="message" rows="4" required></textarea><span class="error" data-for="message"></span></label>
+          <button class="btn btn-solid" type="submit">Let's Talk</button>
+          <p id="form-note" class="muted"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+  <div id="site-footer"></div>
+  <script src="site.js"></script>
+  <script>
+    document.getElementById("enquiry").addEventListener("submit", (event) => {
+      event.preventDefault();
+      const data = new FormData(event.currentTarget);
+      const values = Object.fromEntries(data.entries());
+      let ok = true;
+      document.querySelectorAll(".error").forEach((node) => node.textContent = "");
+      if ((values.name || "").trim().length < 2) { document.querySelector("[data-for=name]").textContent = "Enter your name."; ok = false; }
+      if ((values.company || "").trim().length < 2) { document.querySelector("[data-for=company]").textContent = "Enter your company."; ok = false; }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(values.email || "")) { document.querySelector("[data-for=email]").textContent = "Enter a valid email."; ok = false; }
+      if (!/^[0-9+\-\s()]{8,20}$/.test(values.phone || "")) { document.querySelector("[data-for=phone]").textContent = "Enter a phone number."; ok = false; }
+      if (!values.topic) { document.querySelector("[data-for=topic]").textContent = "Choose a topic."; ok = false; }
+      if ((values.message || "").trim().length < 12) { document.querySelector("[data-for=message]").textContent = "Add a short note."; ok = false; }
+      if (!ok) return;
+      const body = ["Name: " + values.name, "Company: " + values.company, "Email: " + values.email, "Phone: " + values.phone, "Topic: " + values.topic, "", values.message].join("\n");
+      window.location.href = "mailto:sharath.c@sequenthr.in?subject=" + encodeURIComponent("Website enquiry: " + values.topic) + "&body=" + encodeURIComponent(body);
+      document.getElementById("form-note").textContent = "Your email app should open with this enquiry addressed to Sequent HR.";
+    });
+  </script>
+</body>
+</html>

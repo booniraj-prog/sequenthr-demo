@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en-IN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Solutions · Sequent HR</title>
+  <meta name="description" content="Labour law consulting, payroll, registrations, inspections, and income tax from Sequent HR Consulting.">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@1,9..144,500&family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap">
+  <link rel="stylesheet" href="site.css">
+</head>
+<body>
+  <div id="site-header"></div>
+  <main>
+    <header class="page-hero">
+      <div class="wrap">
+        <p class="kicker ember">Solutions</p>
+        <h1 class="display" style="margin-top:12px">The work, grouped the way it actually runs.</h1>
+        <p>Labour law and compliance, payroll and tax, and the people practices published alongside them.</p>
+      </div>
+    </header>
+    <section>
+      <div class="wrap" id="solution-groups"></div>
+    </section>
+    <section style="background:var(--paper)">
+      <div class="wrap split">
+        <div>
+          <p class="kicker" style="color:var(--teal)">A clearer next step</p>
+          <h2 class="display" style="font-size:44px;margin-top:12px">What can we help you solve?</h2>
+        </div>
+        <div>
+          <div class="finder-options" id="finder"></div>
+          <div class="rec" id="recommendation" aria-live="polite"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <div id="site-footer"></div>
+  <script src="site.js"></script>
+  <script>
+    const groups = {
+      "Labour law & compliance": ["Labour law consulting", "Shops & establishments", "Factory compliance", "Contract labour", "Registrations & licensing", "Due diligence", "Audit Armor"],
+      "Payroll & tax": ["Payroll solutions", "Payroll compliance", "Income tax"],
+      "People practices": ["HR structure, grievances, standing orders, and employment documents"]
+    };
+    const groupHost = document.getElementById("solution-groups");
+    Object.entries(groups).forEach(([title, items]) => {
+      const block = document.createElement("div");
+      block.style.marginTop = "22px";
+      block.innerHTML = "<h2 class='display' style='font-size:28px'>" + title + "</h2>";
+      const grid = document.createElement("div");
+      grid.className = "cards";
+      grid.style.marginTop = "12px";
+      items.forEach((name) => {
+        const card = document.createElement("article");
+        card.innerHTML = "<h3 style='margin:0 0 8px'>" + name + "</h3><a href='contact.html'>Talk to an HR Expert</a>";
+        grid.appendChild(card);
+      });
+      block.appendChild(grid);
+      groupHost.appendChild(block);
+    });
+
+    const finder = [
+      ["Payroll", "Payroll solutions", "Calculation, payslips, settlements, and the portal employees see."],
+      ["Compliance", "Labour law consulting", "A framework matched to how the organisation operates in India."],
+      ["Inspections", "Audit Armor", "Inspections, vendor audits, and labour-law advisory."],
+      ["Factory", "Factory compliance", "The Factories Act, 1948: safety, registers, returns, and inspectors."],
+      ["Tax", "Income tax", "TDS, filings, and Form 16 for employers and employees."]
+    ];
+    const finderHost = document.getElementById("finder");
+    const rec = document.getElementById("recommendation");
+    finder.forEach((item, index) => {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.textContent = item[0];
+      button.setAttribute("aria-pressed", index === 0 ? "true" : "false");
+      button.addEventListener("click", () => {
+        [...finderHost.children].forEach((el, i) => el.setAttribute("aria-pressed", String(i === index)));
+        showRec(item);
+      });
+      finderHost.appendChild(button);
+    });
+    function showRec(item) {
+      rec.innerHTML = "<p class='kicker' style='color:var(--orange)'>Recommended</p><h3>" + item[1] + "</h3><p class='muted'>" + item[2] + "</p><a class='btn btn-solid' href='contact.html'>Talk to an HR Expert</a>";
+    }
+    showRec(finder[0]);
+  </script>
+</body>
+</html>
